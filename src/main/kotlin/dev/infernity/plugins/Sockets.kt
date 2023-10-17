@@ -26,7 +26,7 @@ fun Application.configureSockets() {
     routing {
         val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
         webSocket("/chat") {
-            send(Json.encodeToString(InitializationPacket("info", "Rollplayer Server 3.0 / ICP 2.1.1", "3.0", "2.1.1")))
+            send(Json.encodeToString(InitializationPacket("info", "Radiate Server 3.1 / ICP 2.1.1", "3.1", "2.1.1")))
             val usernameFrame = incoming.receive()
             println(usernameFrame)
             if ((usernameFrame as? Frame.Text) == null) {
@@ -50,7 +50,7 @@ fun Application.configureSockets() {
                             val textWithUsername = "[${thisConnection.name}]: $trimmedPacketData"
                             getLogger("text_backup").info(textWithUsername)
                             connections.forEach {
-                                it.session.send(Json.encodeToString(MessagePacket("response_chat_message", trimmedPacketData, thisConnection.name, messageID)))
+                                it.session.send(Json.encodeToString(MessagePacket("response_chat_message", trimmedPacketData, thisConnection.name/*, messageID*/)))
                             }
                         }}
                 }
